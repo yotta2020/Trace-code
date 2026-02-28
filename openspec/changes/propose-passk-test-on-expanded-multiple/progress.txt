@@ -18,8 +18,8 @@ Change: propose-passk-test-on-expanded-multiple               Task: 1      Ref: 
 Status: DONE
 
 Git anchors (this RUN):
-- (PASS-only) Commit: 6a55673 "chore(openspec): complete task 1 for propose-passk-test-on-expanded-multiple"
-- (PASS-only) Diffstat (short): 16 files changed, 193 insertions(+), 1603 deletions(-)
+- (PASS-only) Commit: a38053b "chore(openspec): complete task 1 for propose-passk-test-on-expanded-multiple"
+- (PASS-only) Diffstat (short): 19 files changed, 224 insertions(+), 1619 deletions(-)
 
 Evidence pointers:
 - tasks.md: EVIDENCE (RUN #1) under task 1

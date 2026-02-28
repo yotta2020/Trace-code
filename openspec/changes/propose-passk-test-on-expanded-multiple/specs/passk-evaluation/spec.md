@@ -43,14 +43,24 @@ The system MUST route expanded-data inference results for HumanEval and MBPP thr
 - **WHEN** 执行 `scripts/evaluation/FABE/run_calculation_humaneval.sh`
 - **THEN** 通过 `src/evaluation/FABE/Calculate_passk_multiple.py` 对候选代码进行沙箱重测
 - **AND** 通过 `src/evaluation/FABE/aggregate_results.py` 聚合分片
-- **AND** 输出 `results/evaluation/FABE/.../pass_at_k/final_metrics.json`
+- **AND** 默认输入路径（可通过脚本环境变量覆盖）为 `results/evaluation/FABE/humaneval_<lang>/pass_at_k/inference_results.jsonl`
+- **AND** 默认分片输出目录（可通过脚本环境变量覆盖）为 `results/evaluation/FABE/humaneval_<lang>/pass_at_k/shards/`
+  - 每个分片产出：`shards/shard_<shard_id>.jsonl`（`Calculate_passk_multiple.py` 输出；每条记录包含 `passed_count` / `total_candidates` / `variant_type` 以供聚合）
+  - 每个分片日志：`shards/shard_<shard_id>.log`（脚本重定向 stdout/stderr）
+- **AND** 聚合后输出 `results/evaluation/FABE/humaneval_<lang>/pass_at_k/final_metrics.json`
+- **AND** 默认 pass@k 使用 `k=4`（即默认聚合 `pass@4`；后续可通过参数化扩展支持更多 k）
 
 #### Scenario: MBPP 重测与聚合
 - **GIVEN** MBPP 扩充数据对应的 `inference_results.jsonl`
 - **WHEN** 执行 `scripts/evaluation/FABE/run_calculation_mbpp.sh`
 - **THEN** 通过 `src/evaluation/FABE/Calculate_passk_multiple.py` 对候选代码进行沙箱重测
 - **AND** 通过 `src/evaluation/FABE/aggregate_results.py` 聚合分片
-- **AND** 输出 `results/evaluation/FABE/.../pass_at_k/final_metrics.json`
+- **AND** 默认输入路径（可通过脚本环境变量覆盖）为 `results/evaluation/FABE/mbpp_<lang>/pass_at_k/inference_results.jsonl`
+- **AND** 默认分片输出目录（可通过脚本环境变量覆盖）为 `results/evaluation/FABE/mbpp_<lang>/pass_at_k/shards/`
+  - 每个分片产出：`shards/shard_<shard_id>.jsonl`（`Calculate_passk_multiple.py` 输出；每条记录包含 `passed_count` / `total_candidates` / `variant_type` 以供聚合）
+  - 每个分片日志：`shards/shard_<shard_id>.log`（脚本重定向 stdout/stderr）
+- **AND** 聚合后输出 `results/evaluation/FABE/mbpp_<lang>/pass_at_k/final_metrics.json`
+- **AND** 默认 pass@k 使用 `k=4`（即默认聚合 `pass@4`；后续可通过参数化扩展支持更多 k）
 
 ### Requirement: CodeContests 与 MultiPL-E 的 pass@k 输出契约必须一致
 The system MUST preserve the existing CodeContests flow and keep a consistent pass@k output contract across CodeContests, MultiPL-E HumanEval, and MultiPL-E MBPP.

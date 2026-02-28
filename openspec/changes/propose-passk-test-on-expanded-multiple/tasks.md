@@ -9,8 +9,8 @@
   - ACCEPT: 明确扩充数据最小字段：`candidates`、`variant_type`、`name/task_id/problem_id`（至少一个）。
   - ACCEPT: 明确当前评估仅覆盖 C++、Java、Python 三种语言。
   - TEST: Manual: 检查 `proposal.md`、`design.md`、`specs/passk-evaluation/spec.md` 字段与路径定义一致。
-  - BUNDLE (RUN #1): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/ | HOW_TO_RUN: run.sh/run.bat
-  - EVIDENCE (RUN #1): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z | WORKER_STARTUP_LOG: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/logs/worker_startup.txt | VALIDATED_CLI: bash auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/run.sh | EXIT_CODE: 0 | RESULT: PASS | GIT_COMMIT: 6a55673 | COMMIT_MSG: "chore(openspec): complete task 1 for propose-passk-test-on-expanded-multiple" | DIFFSTAT: "16 files changed, 193 insertions(+), 1603 deletions(-)"
+  - BUNDLE (RUN #1): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z | HOW_TO_RUN: run.sh/run.bat
+  - EVIDENCE (RUN #1): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z | WORKER_STARTUP_LOG: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/logs/worker_startup.txt | VALIDATED_CLI: bash auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/run.sh | EXIT_CODE: 0 | RESULT: PASS | GIT_COMMIT: a38053b | COMMIT_MSG: "chore(openspec): complete task 1 for propose-passk-test-on-expanded-multiple" | DIFFSTAT: "19 files changed, 224 insertions(+), 1619 deletions(-)"
 
 - [ ] 2. 定义扩充数据输入 SandboxFusion 的重测流程（HumanEval/MBPP）[#R2]
   - ACCEPT: 明确入口脚本：
@@ -20,6 +20,7 @@
   - ACCEPT: 明确聚合代码：`src/evaluation/FABE/aggregate_results.py`
   - ACCEPT: 明确默认 pass@k 使用 `k=4`，并允许后续参数化扩展。
   - TEST: Manual: 核对 spec 中“脚本 -> 代码 -> 输出路径”链路完整。
+  - BUNDLE (RUN #2): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-2__task-2__ref-R2__20260228T132644Z | HOW_TO_RUN: run.sh/run.bat
 
 - [ ] 3. 保持 CodeContests pass@k 路径兼容性 [#R3]
   - ACCEPT: 明确 CodeContests 入口与计算代码不变：
