@@ -17,6 +17,7 @@
   - TEST: CLI（实现阶段执行）:
     - `bash scripts/evaluation/FABE/run_passk_gate_validation.sh --help`
     - `bash scripts/evaluation/FABE/run_passk_gate_validation.sh --n 4 --augment_types rename1,rename2,dead1,dead2 --mode pass1_only`
+  BUNDLE (RUN #5): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2-codex -c model_reasoning_effort=medium SCOPE: CLI VALIDATION_BUNDLE: auto_test_openspec/simulate-4n-passk-validation-thresholds/run-5__task-2__ref-R2__20260228T172957Z HOW_TO_RUN: run.sh/run.bat
 
 - [ ] 3. 构建“正确答案输入”测试集并定义 pass@1 校验 [#R3]
   - ACCEPT: 对三条评测链路均可生成/提供正确答案输入文件，且每题仅填 1 个正确候选用于 pass@1。
