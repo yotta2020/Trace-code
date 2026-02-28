@@ -1,0 +1,21 @@
+UTC_NOW=20260228T141527Z
+PWD=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code
+RUN_DIR=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z
+REPO_ROOT=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code
+
+--- git ---
+742a8da
+
+--- bash ---
+/usr/bin/bash
+GNU bash, version 5.1.16(1)-release (x86_64-pc-linux-gnu)
+Copyright (C) 2020 Free Software Foundation, Inc.
+
+--- python ---
+auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z/run.sh: line 32: python: command not found
+/usr/bin/python3
+Python 3.10.12
+
+--- docker ---
+/usr/bin/docker
+Docker version 27.5.0, build a187fa5

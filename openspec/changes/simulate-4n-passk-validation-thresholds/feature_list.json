@@ -1,0 +1,142 @@
+{
+  "change_id": "simulate-4n-passk-validation-thresholds",
+  "generated_at": "2026-02-28T17:06:00Z",
+  "features": {
+    "R1": {
+      "category": "functional",
+      "description": "在  设计 4N 模拟输出模式",
+      "task_id": "1.",
+      "accept": "每题可稳定产出 4 个候选；默认变换集合为 2 种变量名更改 + 2 种死代码插入；并保留 pass@k 所需关键字段。",
+      "test": "Manual: 检查输出 JSONL 的  长度为 4，且含  与问题 ID 字段。",
+      "steps": [
+        "检查输出 JSONL 的  长度为 4，且含  与问题 ID 字段。"
+      ],
+      "passes": true
+    },
+    "R2": {
+      "category": "functional",
+      "description": "新建参数化总控脚本（N/扩充类型可配）",
+      "task_id": "2.",
+      "accept": "新脚本支持至少以下参数：、、、。",
+      "test": "CLI（实现阶段执行）:\n- \n- ",
+      "steps": [
+        "Run: bash scripts/evaluation/FABE/run_passk_gate_validation.sh --help",
+        "Run: bash scripts/evaluation/FABE/run_passk_gate_validation.sh --n 4 --augment_types rename1,rename2,dead1,dead2 --mode pass1_only"
+      ],
+      "passes": true
+    },
+    "R3": {
+      "category": "functional",
+      "description": "构建“正确答案输入”测试集并定义 pass@1 校验",
+      "task_id": "3.",
+      "accept": "对三条评测链路均可生成/提供正确答案输入文件，且每题仅填 1 个正确候选用于 pass@1。",
+      "test": "CLI（实现阶段执行）:\n- 🚀 启动并发沙箱容器...
+⚙️  Preparing sandbox-eval-12410...
+631a1148f4151eb1707dd5b55f7bb6bfb644c3270ed33de07285bf15e023c5ca
+⚙️  Preparing sandbox-eval-12411...
+020f339c5022a890d3ad5c973f27db9d3b71366aae42ecfc98565a700c164211
+⚙️  Preparing sandbox-eval-12412...
+eeadd783fab26a008f2c8ca961592da22b485b047520837f02dbf2bf78cb9604
+⚙️  Preparing sandbox-eval-12413...
+5a262cdb3ab5596da9c754ccf87dc36eaaa659ecd5458f21acc42fc343ee6dd4
+⚙️  Preparing sandbox-eval-12414...
+ef536442aceed125560ffc80dd3b84d843479d842e89c0c34e4d722fb5fdd8f2
+⚙️  Preparing sandbox-eval-12415...
+f110381705f57027f8cc24461f7984a0bf990b0b8965bbcd37d85ef0c7f926c4
+⚙️  Preparing sandbox-eval-12416...
+62f59f4e30763e3bb655f2ba88fca8a8b1170025a0647956e6ce227332b93080
+⚙️  Preparing sandbox-eval-12417...
+45f966cd40d6659c059f9b4700bcd630e4937d1fcf12fc871d5b590a9ccd161e
+⚙️  Preparing sandbox-eval-12418...
+d9037bf18bbed229fe410bb149e29533e258e8cda75b0677b099669d703bcf71
+⚙️  Preparing sandbox-eval-12419...
+1a305e51d08c0a95f0b70c9b9e35c649d3df69a07bef738e4bb9eef440b7ea63
+⚙️  Preparing sandbox-eval-12420...
+bbbde2931e9c244f62f960ea2f1cb581b61224ab43ef379aa34c6909bf39d500
+⚙️  Preparing sandbox-eval-12421...
+00ce61d95844951f9b6abd80518b1d0b985b4efa70efa15ad520a72378c4c331
+⚙️  Preparing sandbox-eval-12422...
+50b3584cdc8746883aa3bb23ef4eabce06cb98e29801ee4e922369f63df09f2e
+⚙️  Preparing sandbox-eval-12423...
+326496d318f428e91ec1814bdf3600e4ede5c835d29b1bae5d3473cdec786a95
+⚙️  Preparing sandbox-eval-12424...
+d6a0fab02367c158282587b1708489170d4c1ec7661d13f9a1a7c5291f864efc
+⚙️  Preparing sandbox-eval-12425...
+fb3e4d74e065df218f7caeb0c5b4320f2a00e6b46c8c3e23d5e78790f9d2b996
+⚙️  Preparing sandbox-eval-12426...
+bd78fd43819c5100868b2886d3ff2f845d873559fdb01ac3aeda9c0cf554010c
+⚙️  Preparing sandbox-eval-12427...
+551ffb42b2b26e7ebd9d9489a47c0ce5328a68d272bf6a056826c40764da006a
+⚙️  Preparing sandbox-eval-12428...
+cbf8fb16855903865303ad4661e93f2f20657bd5492a4b38525795ac7b003b1a
+⚙️  Preparing sandbox-eval-12429...
+6b93eb2422ddf84296a4a33ec89227569bc165c4a026add75f4ca3d39ce4d16c
+⏳ 等待容器初始化 (20s)...
+🔥 启动 Shard 0 (Port 12410)
+🔥 启动 Shard 1 (Port 12411)
+🔥 启动 Shard 2 (Port 12412)
+🔥 启动 Shard 3 (Port 12413)
+🔥 启动 Shard 4 (Port 12414)
+🔥 启动 Shard 5 (Port 12415)
+🔥 启动 Shard 6 (Port 12416)
+🔥 启动 Shard 7 (Port 12417)
+🔥 启动 Shard 8 (Port 12418)
+🔥 启动 Shard 9 (Port 12419)
+🔥 启动 Shard 10 (Port 12420)
+🔥 启动 Shard 11 (Port 12421)
+🔥 启动 Shard 12 (Port 12422)
+🔥 启动 Shard 13 (Port 12423)
+🔥 启动 Shard 14 (Port 12424)
+🔥 启动 Shard 15 (Port 12425)
+🔥 启动 Shard 16 (Port 12426)
+🔥 启动 Shard 17 (Port 12427)
+🔥 启动 Shard 18 (Port 12428)
+🔥 启动 Shard 19 (Port 12429)
+🎉 所有分片验证完毕！
+
+Variant Type         | Pass@1   | Pass@2   | Pass@4  
+--------------------------------------------------
+==== 评测完成！结果已输出至终端及 results/evaluation/FABE/java/pass_at_k/shards ====
+🛑 [Cleanup] 停止进程并删除容器...\n- 
+Variant Type         | Pass@1   | Pass@2   | Pass@4  
+--------------------------------------------------
+HumanEval pass@k calculation done: results/evaluation/FABE/humaneval_cpp/pass_at_k/final_metrics.json\n- 
+Variant Type         | Pass@1   | Pass@2   | Pass@4  
+--------------------------------------------------
+MBPP pass@k calculation done: results/evaluation/FABE/mbpp_cpp/pass_at_k/final_metrics.json\n- 校验三条链路  均满足 （AND）。",
+      "steps": [
+        "Run: bash scripts/evaluation/FABE/run_calculation.sh",
+        "Run: bash scripts/evaluation/FABE/run_calculation_humaneval.sh",
+        "Run: bash scripts/evaluation/FABE/run_calculation_mbpp.sh",
+        "Run: 校验三条链路 final_metrics.json 均满足 pass@1 > 90%（AND）"
+      ],
+      "passes": true
+    },
+    "R4": {
+      "category": "functional",
+      "description": "构建“4N 模拟候选”测试集并定义 pass@4 校验",
+      "task_id": "4.",
+      "accept": "仅在 Task 3 通过后执行；三条链路都能消费 4N 输入并产出指标文件。",
+      "test": "CLI（实现阶段执行）:\n- 运行同上三条脚本\n- 校验三条链路  均满足 （AND）。",
+      "steps": [
+        "Run: 运行同上三条脚本",
+        "Run: 校验三条链路 final_metrics.json 均满足 pass@4 > 50%（AND）"
+      ],
+      "passes": true
+    },
+    "R5": {
+      "category": "functional",
+      "description": "增加脚本正确性判定规则与失败处理",
+      "task_id": "5.",
+      "accept": "任一阈值不达标即明确 FAIL，并输出定位信息（benchmark、路径、指标值），同时输出失败归因与样例日志。",
+      "test": "Manual: 审核 ，确认包含:\n- （数据集样例节选）\n- （SandboxFusion 错误返回）\n- （ /  / ）。",
+      "steps": [
+        "审核 .../pass_at_k/gate_debug.json",
+        "确认包含 sample_records（数据集样例节选）",
+        "确认包含 sandbox_errors（SandboxFusion 错误返回）",
+        "确认包含 root_cause_guess（dataset_issue / script_issue / sandbox_issue）"
+      ],
+      "passes": true
+    }
+  }
+}

@@ -1,0 +1,5 @@
+UTC_TIMESTAMP: 2026-02-28T13:43:27Z
+REPO_ROOT: /home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code
+PYTHON_BIN: python3
+/usr/bin/python3
+Python 3.10.12

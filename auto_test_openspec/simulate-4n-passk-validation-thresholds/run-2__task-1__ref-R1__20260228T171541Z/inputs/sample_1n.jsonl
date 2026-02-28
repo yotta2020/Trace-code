@@ -1,0 +1,1 @@
+{"id": "CPP-001-0", "instruction": "", "input": "[Clean Code]\nint add(int a, int b) { return a + b; }\n", "output": ["int add(int a, int b) { return a + b; }"], "task_id": "sample_task"}

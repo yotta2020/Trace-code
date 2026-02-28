@@ -1,0 +1,10 @@
+UTC_START=2026-02-28T14:03:01Z
+RUN_DIR=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135523Z
+ROOT_DIR=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code
+
+[provenance] uname: Linux server169 5.15.0-164-generic #174-Ubuntu SMP Fri Nov 14 20:25:16 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+[provenance] python3: /usr/bin/python3
+[provenance] python: [provenance] Python 3.10.12
+[provenance] uv: uv 0.9.22
+[provenance] git_base: 10a9823
+[provenance] deps: stdlib-only (no installs)

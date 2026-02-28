@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Python Script",
+            "type": "shell",
+            "command": "source /home/nfs/share-yjy/miniconda3/bin/activate unsloth-yjy",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

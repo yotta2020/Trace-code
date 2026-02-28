@@ -1,0 +1,4 @@
+UTC_START=2026-02-28T13:38:19Z
+PY_BIN=python3
+Python 3.10.12
+OK: R3 textual path-compatibility checks passed.

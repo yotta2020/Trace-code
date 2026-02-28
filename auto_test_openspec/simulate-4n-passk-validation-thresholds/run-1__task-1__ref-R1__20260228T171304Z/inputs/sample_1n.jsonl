@@ -1,0 +1,1 @@
+{"id":"CPP-001-0","instruction":"test","input":"[Clean Code]\nint add(int a, int b){\n    return a + b;\n}\n","output":[],"score":[],"metadata":{"original_id":"ccp-0001","split_index":1},"test_cases":[{"input":"1 2","output":"3"}],"variant_type":"clean"}

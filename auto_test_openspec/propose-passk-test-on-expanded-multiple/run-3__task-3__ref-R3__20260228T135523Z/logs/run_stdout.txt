@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "missing": [],
+  "details": {
+    "required_paths": [
+      "scripts/evaluation/FABE/run_calculation.sh",
+      "src/evaluation/FABE/Calculate_passk.py",
+      "src/evaluation/FABE/aggregate_results.py"
+    ],
+    "required_io_patterns": [
+      "results/evaluation/FABE/<lang>/pass_at_k/inference_results.jsonl",
+      "results/evaluation/FABE/<lang>/pass_at_k/shards/",
+      "results/evaluation/FABE/<lang>/pass_at_k/final_metrics.json"
+    ]
+  }
+}
