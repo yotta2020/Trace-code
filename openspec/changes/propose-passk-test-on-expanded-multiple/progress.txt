@@ -52,3 +52,26 @@ Evidence pointers:
 - git_openspec_history/propose-passk-test-on-expanded-multiple/runs.log (PASS-only): must record the same checkpoint commit for this RUN (commit SHA/message + diffstat/files)
 - git history (PASS-only): the commit above is the rollback checkpoint for this RUN
 ================================================================================
+
+================================================================================
+RUN ENTRY
+
+[RUN SUMMARY]
+Timestamp (UTC): $(date -u +%Y-%m-%dT%H:%M:%SZ)     Run: #4     Attempt: 1
+Change: propose-passk-test-on-expanded-multiple               Task: 4      Ref: R4
+
+Status: DONE
+
+Git anchors (this RUN):
+- (PASS-only) Commit: fac03d7 "chore(openspec): complete task 4 for propose-passk-test-on-expanded-multiple"
+- (PASS-only) Diffstat (short): 5 files changed, 50 insertions(+), 7 deletions(-)
+
+Evidence pointers:
+- tasks.md: EVIDENCE (RUN #4) under task 4
+  - MUST include: CODEX_CMD + SCOPE + VALIDATION_BUNDLE + WORKER_STARTUP_LOG + VALIDATED_CLI + RESULT
+  - (PASS-only) MUST include: GIT_COMMIT/COMMIT_MSG + DIFFSTAT or FILES
+- auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z/: the human-reproducible validation bundle for this RUN (task.md + run scripts + assets + outputs/logs, including logs/worker_startup.txt)
+- feature_list.json (PASS-only): entry where ref=="R4" : passes false→true (Supervisor-only)
+- git_openspec_history/propose-passk-test-on-expanded-multiple/runs.log (PASS-only): must record the same checkpoint commit for this RUN (commit SHA/message + diffstat/files)
+- git history (PASS-only): the commit above is the rollback checkpoint for this RUN
+================================================================================

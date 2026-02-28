@@ -22,7 +22,7 @@
       "steps": [
         "核对 spec 中“脚本 -> 代码 -> 输出路径”链路完整。"
       ],
-      "passes": false
+      "passes": true
     },
     "R3": {
       "category": "testing",
@@ -44,7 +44,7 @@
       "steps": [
         "Run: SCOPE: CLI"
       ],
-      "passes": false
+      "passes": true
     }
   }
 }
