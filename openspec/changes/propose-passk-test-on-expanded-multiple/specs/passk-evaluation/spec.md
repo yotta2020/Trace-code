@@ -70,7 +70,12 @@ The system MUST preserve the existing CodeContests flow and keep a consistent pa
 - **WHEN** 执行 `scripts/evaluation/FABE/run_calculation.sh`
 - **THEN** 通过 `src/evaluation/FABE/Calculate_passk.py` 执行 pass@k 计算
 - **AND** 通过 `src/evaluation/FABE/aggregate_results.py` 完成聚合
-- **AND** 输出 `results/evaluation/FABE/.../pass_at_k/final_metrics.json`
+- **AND** 默认输入路径（与现有脚本路径模式一致）为 `results/evaluation/FABE/<lang>/pass_at_k/inference_results.jsonl`
+  - 其中 `<lang>` 为 CodeContests 流程使用的语言目录名（与 `Calculate_passk.py --lang` 保持一致；常见取值为 `cpp`、`java`、`py3`）
+- **AND** 默认分片输出目录（与现有脚本路径模式一致）为 `results/evaluation/FABE/<lang>/pass_at_k/shards/`
+  - 每个分片产出：`shards/shard_<shard_id>.jsonl`（`Calculate_passk.py` 输出）
+  - 每个分片日志：`shards/shard_<shard_id>.log`（脚本重定向 stdout/stderr）
+- **AND** 聚合后输出 `results/evaluation/FABE/<lang>/pass_at_k/final_metrics.json`
 
 #### Scenario: 统一最终输出路径契约
 - **GIVEN** 任意支持基准的分片结果

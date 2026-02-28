@@ -28,6 +28,7 @@
     - `src/evaluation/FABE/Calculate_passk.py`
   - ACCEPT: 最终输出路径契约与 MultiPL-E 一致（`.../pass_at_k/final_metrics.json`）。
   - TEST: Manual: 核对 spec 中 CodeContests 路径被显式声明且无破坏性变更。
+  - BUNDLE (RUN #3): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z | HOW_TO_RUN: run.sh/run.bat
 
 - [ ] 4. 提供实现阶段验证命令与结果检查 [#R4]
   - ACCEPT: 提供三个可执行入口命令：

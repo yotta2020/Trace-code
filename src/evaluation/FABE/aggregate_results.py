@@ -1,11 +1,13 @@
 import json
 import glob
 import argparse
-import numpy as np
+import math
 
 def calculate_pass_at_k(c, n, k):
     if n - c < k: return 1.0
-    return 1.0 - np.prod(np.arange(n - c - k + 1, n - c + 1) / np.arange(n - k + 1, n + 1))
+    numer = range(n - c - k + 1, n - c + 1)
+    denom = range(n - k + 1, n + 1)
+    return 1.0 - math.prod(a / b for a, b in zip(numer, denom))
 
 def main():
     parser = argparse.ArgumentParser()
@@ -18,7 +20,7 @@ def main():
         with open(shard_file, 'r') as f:
             for line in f:
                 item = json.loads(line)
-                v_type = item['variant_type']
+                v_type = item.get("variant_type") or "unknown"
                 if v_type not in stats:
                     stats[v_type] = {"p1": 0, "p2": 0, "p4": 0, "count": 0}
                 
