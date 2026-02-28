@@ -1,0 +1,32 @@
+================================================================================
+SESSION STARTUP ENTRY
+
+[SESSION STARTUP]
+[Assistant] I'll start by getting my bearings and understanding the current state of the project.
+[Tool Use] <read - openspec/changes/propose-passk-test-on-expanded-multiple/tasks.md>
+[Tool Use] <read - openspec/changes/propose-passk-test-on-expanded-multiple/feature_list.json>
+[Assistant] Initializing progress tracking for propose-passk-test-on-expanded-multiple.
+================================================================================
+
+================================================================================
+RUN ENTRY
+
+[RUN SUMMARY]
+Timestamp (UTC): 2026-02-28T13:16:00Z     Run: #1     Attempt: 1
+Change: propose-passk-test-on-expanded-multiple               Task: 1      Ref: R1
+
+Status: DONE
+
+Git anchors (this RUN):
+- (PASS-only) Commit: 9d84331 "Initial commit: Trace-code project"
+- (PASS-only) Diffstat (short): 0 files changed
+
+Evidence pointers:
+- tasks.md: EVIDENCE (RUN #1) under task 1
+  - MUST include: CODEX_CMD + SCOPE + VALIDATION_BUNDLE + WORKER_STARTUP_LOG + VALIDATED_CLI + RESULT
+  - (PASS-only) MUST include: GIT_COMMIT/COMMIT_MSG + DIFFSTAT or FILES
+- auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/: the human-reproducible validation bundle for this RUN (task.md + run scripts + assets + outputs/logs, including logs/worker_startup.txt)
+- feature_list.json (PASS-only): entry where ref=="R1" : passes false→true (Supervisor-only)
+- git_openspec_history/propose-passk-test-on-expanded-multiple/runs.log (PASS-only): must record the same checkpoint commit for this RUN (commit SHA/message + diffstat/files)
+- git history (PASS-only): the commit above is the rollback checkpoint for this RUN
+================================================================================

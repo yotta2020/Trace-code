@@ -226,7 +226,7 @@ openspec --version         # Check version (0.21.0)
 ### Codex CLI
 ```bash
 codex                      # Interactive mode
-codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium "<prompt>"
+codex exec --full-auto --skip-git-repo-check --model gpt-5.2-codex -c model_reasoning_effort=medium "<prompt>"
 ```
 
 ### Claude Code
