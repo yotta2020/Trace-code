@@ -33,7 +33,7 @@
       "steps": [
         "核对 spec 中 CodeContests 路径被显式声明且无破坏性变更。"
       ],
-      "passes": false
+      "passes": true
     },
     "R4": {
       "category": "functional",

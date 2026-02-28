@@ -22,15 +22,16 @@
   - TEST: Manual: 核对 spec 中“脚本 -> 代码 -> 输出路径”链路完整。
   - BUNDLE (RUN #2): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-2__task-2__ref-R2__20260228T132644Z | HOW_TO_RUN: run.sh/run.bat
 
-- [ ] 3. 保持 CodeContests pass@k 路径兼容性 [#R3]
+- [x] 3. 保持 CodeContests pass@k 路径兼容性 [#R3]
   - ACCEPT: 明确 CodeContests 入口与计算代码不变：
     - `scripts/evaluation/FABE/run_calculation.sh`
     - `src/evaluation/FABE/Calculate_passk.py`
   - ACCEPT: 最终输出路径契约与 MultiPL-E 一致（`.../pass_at_k/final_metrics.json`）。
   - TEST: Manual: 核对 spec 中 CodeContests 路径被显式声明且无破坏性变更。
   - BUNDLE (RUN #3): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z | HOW_TO_RUN: run.sh/run.bat
+  - EVIDENCE (RUN #3): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z | WORKER_STARTUP_LOG: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z/logs/worker_startup.txt | VALIDATED_CLI: bash auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z/run.sh | EXIT_CODE: 0 | RESULT: PASS | GIT_COMMIT: 742a8da | COMMIT_MSG: "chore(openspec): complete task 3 for propose-passk-test-on-expanded-multiple" | DIFFSTAT: "3 files changed, 13 insertions(+), 5 deletions(-)"
 
-- [ ] 4. 提供实现阶段验证命令与结果检查 [#R4]
+- [x] 4. 提供实现阶段验证命令与结果检查 [#R4]
   - ACCEPT: 提供三个可执行入口命令：
     - `bash scripts/evaluation/FABE/run_calculation.sh`
     - `bash scripts/evaluation/FABE/run_calculation_humaneval.sh`
@@ -42,3 +43,5 @@
     - 执行上述脚本与文件检查命令，确认流程可落地。
     - 执行字段检查示例：
       - `python -c "import json; p='results/evaluation/FABE/<benchmark>/pass_at_k/final_metrics.json'; d=json.load(open(p)); req=['benchmark','pass@1','pass@4','total_candidates','evaluated_candidates']; missing=[k for k in req if k not in d]; assert not missing, missing"`
+  - BUNDLE (RUN #4): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z | HOW_TO_RUN: run.sh/run.bat
+  - EVIDENCE (RUN #4): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium | SCOPE: CLI | VALIDATION_BUNDLE: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z | WORKER_STARTUP_LOG: auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z/logs/worker_startup.txt | VALIDATED_CLI: bash auto_test_openspec/propose-passk-test-on-expanded-multiple/run-4__task-4__ref-R4__20260228T140619Z/run.sh | EXIT_CODE: 0 | RESULT: PASS | GIT_COMMIT: 27ab3df | COMMIT_MSG: "chore(openspec): complete task 4 for propose-passk-test-on-expanded-multiple" | DIFFSTAT: "3 files changed, 14 insertions(+), 6 deletions(-)"

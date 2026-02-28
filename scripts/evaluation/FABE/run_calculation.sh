@@ -66,6 +66,7 @@ echo "🎉 所有分片验证完毕！"
 # 最后一步：聚合所有分片并计算最终报表
 python "src/evaluation/FABE/aggregate_results.py" \
     --shard_dir "$OUTPUT_DIR" \
-    --save_report "results/evaluation/FABE/${TARGET_LANG}/pass_at_k/final_metrics.json"
+    --save_report "results/evaluation/FABE/${TARGET_LANG}/pass_at_k/final_metrics.json" \
+    --benchmark "codecontests"
 
 echo "==== 评测完成！结果已输出至终端及 $OUTPUT_DIR ===="
