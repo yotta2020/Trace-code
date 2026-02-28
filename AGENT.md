@@ -61,7 +61,7 @@ IMPORTANT: All output and all "model-to-model" / tool-assisted dialogue must be 
 
 ## Worker invocation (Codex CLI)
 # Single Codex command constant (maintain ONLY ONE copy)
-CODEX_CMD = codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium
+CODEX_CMD = codex exec --full-auto --skip-git-repo-check --model gpt-5.2-codex -c model_reasoning_effort=medium
 
 How it works:
 - Supervisor composes a single English prompt that targets ONE tasks.md checkbox item.
@@ -146,7 +146,7 @@ After the worker finishes a task:
   - Supervisor-written (final decision + evidence pointers):
     - `EVIDENCE (RUN #n): ... | VALIDATED: <exact commands + exit code> | RESULT: PASS|FAIL`
     - Prefer this format (SINGLE LINE, THIS TASK ONLY):
-    EVIDENCE (RUN #n): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2 -c model_reasoning_effort=medium
+    EVIDENCE (RUN #n): CODEX_CMD=codex exec --full-auto --skip-git-repo-check --model gpt-5.2-codex -c model_reasoning_effort=medium
     | SCOPE: CLI
     | VALIDATION_BUNDLE: auto_test_openspec/<change-id>/<run-folder>
     | WORKER_STARTUP_LOG: auto_test_openspec/<change-id>/<run-folder>/logs/worker_startup.txt

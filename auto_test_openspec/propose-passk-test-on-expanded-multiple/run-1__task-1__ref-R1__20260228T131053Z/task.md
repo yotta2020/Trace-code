@@ -29,10 +29,10 @@ auto_test_openspec\propose-passk-test-on-expanded-multiple\run-1__task-1__ref-R1
 
 ## Outputs
 - Logs:
-  - `logs/run.txt` (command transcript)
-  - `logs/validate_stdout.txt` (validator stdout/stderr capture)
+  - `logs/run_<UTC>.txt` (command transcript)
+  - `logs/validate_stdout_<UTC>.txt` (validator stdout/stderr capture)
 - Machine-readable report:
-  - `outputs/validation_report.json`
+  - `outputs/validation_report_<UTC>.json`
 
 ## Pass/Fail criteria (machine-decidable)
 PASS if and only if:
@@ -44,4 +44,3 @@ FAIL otherwise (non-zero exit code, missing required strings/sections, or valida
 ## Provenance / assumptions
 - Validation is rule-based (string/structure assertions) because R1 `TEST:` is manual consistency checking of docs.
 - No external dependencies are installed; validator uses Python 3 stdlib only.
-

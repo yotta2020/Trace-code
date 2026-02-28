@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 import re
@@ -25,6 +26,14 @@ def require_all(text: str, needles: list[str], label: str) -> list[str]:
 
 
 def main() -> int:
+    ap = argparse.ArgumentParser(description="Validate R1 doc consistency for MultiPL-E expanded dataset spec.")
+    ap.add_argument(
+        "--report",
+        default=None,
+        help="Output JSON report path. Default: <run-dir>/outputs/validation_report.json",
+    )
+    args = ap.parse_args()
+
     script_dir = Path(__file__).resolve().parent
     run_dir = script_dir.parent
     repo_root = find_repo_root(run_dir)
@@ -58,10 +67,12 @@ def main() -> int:
     ]
 
     # Minimal field tokens that must be explicitly documented for the expanded JSONL contract.
-    field_tokens = ["candidates", "variant_type", "name", "task_id", "problem_id"]
+    # Use backticked needles to avoid accidental substring matches.
+    field_tokens = ["`candidates`", "`variant_type`", "`name`", "`task_id`", "`problem_id`"]
 
-    # Language scope for this change.
-    lang_tokens = ["cpp", "java", "python"]
+    # Language scope for this change (MultiPL-E subset naming).
+    # Use backticked needles to avoid accidental substring matches (e.g. "py" in other words).
+    lang_tokens = ["`cpp`", "`java`", "`py`"]
 
     errors += require_all(proposal, ref_paths, "proposal.md refs")
     errors += require_all(design, ref_paths, "design.md refs")
@@ -89,7 +100,7 @@ def main() -> int:
         "all_checks_pass": len(errors) == 0,
     }
 
-    out_path = run_dir / "outputs" / "validation_report.json"
+    out_path = Path(args.report) if args.report else (run_dir / "outputs" / "validation_report.json")
     out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     if errors:
@@ -107,4 +118,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
