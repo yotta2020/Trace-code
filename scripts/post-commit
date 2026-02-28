@@ -1,0 +1,27 @@
+#!/bin/bash
+# Git post-commit hook: 自动同步 CLAUDE.md / AGENT.md / AGENT-ZH.md
+# 使用方法：将此文件复制到 .git/hooks/post-commit 并添加执行权限
+
+# 获取项目根目录
+PROJECT_ROOT=$(git rev-parse --show-toplevel)
+
+# 检查是否有 CLAUDE.md 或 AGENT.md 或 AGENT-ZH.md 被修改
+CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null)
+
+if echo "$CHANGED_FILES" | grep -qE "(CLAUDE\.md|AGENT\.md|AGENT-ZH\.md)"; then
+    echo "检测到文档变更，开始同步..."
+
+    # 运行同步脚本
+    if [ -f "$PROJECT_ROOT/scripts/sync_docs.py" ]; then
+        python3 "$PROJECT_ROOT/scripts/sync_docs.py" --source newest
+
+        # 如果有文件变更，自动提交
+        if ! git diff --quiet; then
+            git add AGENT.md AGENT-ZH.md 2>/dev/null
+            git commit -m "chore: 同步文档 (auto-sync AGENT.md & AGENT-ZH.md)" --no-verify
+            echo "✓ 已自动提交同步的文档"
+        fi
+    else
+        echo "警告：同步脚本不存在 ($PROJECT_ROOT/scripts/sync_docs.py)"
+    fi
+fi

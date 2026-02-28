@@ -1,0 +1,41 @@
+name: Sync Agent Docs
+
+on:
+  push:
+    paths:
+      - 'CLAUDE.md'
+      - 'AGENT.md'
+      - 'AGENT-ZH.md'
+  pull_request:
+    paths:
+      - 'CLAUDE.md'
+      - 'AGENT.md'
+      - 'AGENT-ZH.md'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run sync script
+        run: |
+          python scripts/sync_docs.py --source newest
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: auto-sync AGENT.md & AGENT-ZH.md'
+          file_pattern: 'AGENT.md AGENT-ZH.md'
+          branch: ${{ github.head_ref || github.ref_name }}

@@ -1,0 +1,81 @@
+# defect clone
+task: defect
+
+do_defense_by_different_clean_samples: false
+
+attacker:
+    type: style
+    poisoner:
+        poison_rate: 0.1
+        # -1: deadcode, -2: invichar, -3: tokensub
+        triggers: ['-3.1']
+
+defender:
+    type: onion
+    metrics: [F1, precision, recall, FPR, auc]
+
+    # ONION specific parameters
+    batch_size: 108  # Reduced from 128 for memory optimization
+    purify_bar: 50
+
+    # Language model for perplexity calculation
+    lm_model_path: models/base/CodeLlama-7b-hf
+    lm_max_length: 512
+    
+    # Memory optimization settings
+    use_8bit_quantization: true  # Enable 8-bit quantization (reduces memory by ~50%)
+
+clean_dataset:
+    data_dir: data/processed/defense/${common.task_mapping.${task}}
+
+victim:
+    type: CodeBERT
+    poison_rate: 0.1
+    base_path: models/base/codebert-base
+    model_path: models/victim/${victim.type}/${common.task_mapping.${task}}/IST_${attacker.poisoner.triggers[0]}_${victim.poison_rate}
+    num_classes: 2
+    device: gpu
+    max_len: 400
+
+seed: 2333
+
+common:
+    task_mapping:
+        defect: dd
+        clone: cd
+        refinement: cr
+        refine: cr
+
+    input_key:
+        defect: func
+        clone: code1_code2
+        refinement: buggy
+        refine: buggy
+
+    output_key:
+        defect: target
+        clone: target
+        refinement: fixed
+        refine: fixed
+
+    language:
+        defect: c
+        clone: java
+        refinement: java
+        refine: java
+
+    poison_target_label:
+        defect: 0
+        clone: 0
+        refinement: null
+        refine: null
+
+    defense_type:
+        onion: detect
+
+# Configure Hydra output directory
+hydra:
+    run:
+        dir: ../../../log/defense/backdoordefense/${now:%Y-%m-%d}/${now:%H-%M-%S}
+    job:
+        chdir: false

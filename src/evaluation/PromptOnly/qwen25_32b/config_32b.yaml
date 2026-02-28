@@ -1,0 +1,93 @@
+# ============================================================================
+# Qwen2.5-Coder-32B Defense Evaluation Configuration
+# ============================================================================
+# This configuration file contains all settings for running defense evaluation
+# using the Qwen2.5-32B-Instruct model.
+#
+# Key differences from 7B config:
+# - Uses 32B model with quantization
+# - Smaller batch size for sanitization
+# ============================================================================
+
+# Model paths
+models:
+  qwen_model_path: "models/base/Qwen2.5-Coder-32B-Instruct"
+  base_model_path: "models/base/codebert-base"
+
+# Data paths
+data:
+  data_dir: "data/poisoned/dd/c"
+  victim_model_dir: "models/victim/CodeBERT/dd"
+  output_dir: "results/PromptOnly/32B"
+
+# Experiment settings
+experiment:
+  # Attack methods to evaluate
+  attack_ways:
+    - IST
+    - AFRAIDOOR
+
+  # IST triggers (all poisoning patterns)
+  triggers:
+    - "-3.1"    # Shell/Ruby style variable
+    - "-1.1"    # Dead code insertion
+    - "4.3"     # Loop format variation
+    - "4.4"     # Loop format variation
+    - "9.1"     # Array initialization
+    - "9.2"     # Array initialization
+    - "11.3"    # Conditional expression
+
+  # Poison rate
+  poison_rate: "0.01"
+
+# Model settings (optimized for A100 80GB)
+model_settings:
+  device: "cuda"
+  block_size: 400
+  batch_size: 128                # Evaluation batch size
+  sanitize_batch_size: 2         # Code generation batch size (reduced for 32B)
+  max_length: 1024
+
+  # 32B specific settings
+  use_quantization: true         # Use quantization (recommended)
+  quantization_bits: 8           # 8-bit quantization (or 4 for lower memory)
+
+# Runtime flags
+flags:
+  force_sanitize: false          # Force re-sanitization even if cached file exists
+
+# GPU settings
+gpu:
+  cuda_visible_devices: "0"      # GPU device ID
+
+# ============================================================================
+# Notes on Memory Usage (A100 80GB)
+# ============================================================================
+# With 8-bit quantization:
+#   - Model size: ~32GB
+#   - Peak memory: ~40-45GB
+#   - Safe for single A100 80GB
+#
+# With 4-bit quantization:
+#   - Model size: ~16GB
+#   - Peak memory: ~20-25GB
+#   - More memory efficient, slight quality loss
+#
+# Without quantization:
+#   - Model size: ~64GB
+#   - Peak memory: ~70-75GB
+#   - May be tight on single A100 80GB
+# ============================================================================
+
+# ============================================================================
+# Performance Expectations
+# ============================================================================
+# Batch size 2:
+#   - Processing time: ~2-3x slower than 7B model
+#   - ~100-200 samples per hour (depending on code complexity)
+#   - Total time for all triggers: ~8-12 hours
+#
+# Batch size 4:
+#   - Faster but requires more memory
+#   - May cause OOM if not using quantization
+# ============================================================================
