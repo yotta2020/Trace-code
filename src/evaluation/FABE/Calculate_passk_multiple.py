@@ -26,20 +26,24 @@ from src.data_preprocessing.CodeContestsPlus.run_selection import create_robust_
 
 def submit_to_sandbox(session, sandbox_url, dataset_name, problem_name,
                       completion, provided_data, compile_timeout, run_timeout,
-                      max_retries=3):
+                      extra=None, max_retries=3):
     """Submit a single candidate to SandboxFusion /submit endpoint.
 
     Returns True if the submission was accepted (all tests passed), False otherwise.
     """
+    config = {
+        "provided_data": provided_data,
+        "compile_timeout": compile_timeout,
+        "run_timeout": run_timeout,
+    }
+    if extra:
+        config["extra"] = extra
+
     payload = {
         "dataset": dataset_name,
         "id": problem_name,
         "completion": completion,
-        "config": {
-            "provided_data": provided_data,
-            "compile_timeout": compile_timeout,
-            "run_timeout": run_timeout,
-        },
+        "config": config,
     }
 
     url = f"{sandbox_url.rstrip('/')}/submit"
@@ -104,45 +108,48 @@ def main():
 
     os.makedirs(os.path.dirname(os.path.abspath(args.out_shard_jsonl)), exist_ok=True)
 
-    # --- Load HuggingFace dataset ---
-    from datasets import load_dataset
-
-    hf_subset = f"{args.benchmark}-{args.lang}"
-    print(f"[INFO] Loading HuggingFace dataset: nuprl/MultiPL-E / {hf_subset}")
-
-    load_kwargs = {"path": "nuprl/MultiPL-E", "name": hf_subset, "split": "test"}
-    if args.hf_cache_dir:
-        load_kwargs["cache_dir"] = args.hf_cache_dir
-
-    try:
-        hf_ds = load_dataset(**load_kwargs)
-    except Exception as e:
-        print(f"[ERROR] Failed to load HF dataset nuprl/MultiPL-E/{hf_subset}: {e}")
-        sys.exit(1)
-
-    # Build lookup dict by problem name, with fallback to task_id
-    hf_lookup = {}
-    for entry in hf_ds:
-        name = entry.get("name")
-        if name:
-            hf_lookup[name] = entry
-        task_id = entry.get("task_id")
-        if task_id and task_id not in hf_lookup:
-            hf_lookup[task_id] = entry
-
-    print(f"[INFO] Loaded {len(hf_ds)} problems from HF dataset, {len(hf_lookup)} lookup keys")
-
     # --- Initialize session ---
     session = create_robust_session()
-
-    # Dataset name for SandboxFusion
-    dataset_name = "MultiPLEDataset"
 
     # --- Read inference results ---
     with open(args.inference_results, "r", encoding="utf-8") as f:
         all_data = [json.loads(line) for line in f if line.strip()]
 
     print(f"[INFO] Loaded {len(all_data)} items from inference results")
+
+    # If provided_data is embedded in inference results, skip HF lookup.
+    use_provided_data = all("provided_data" in item for item in all_data)
+    hf_lookup = {}
+    if not use_provided_data:
+        # --- Load HuggingFace dataset ---
+        from datasets import load_dataset
+
+        hf_subset = f"{args.benchmark}-{args.lang}"
+        print(f"[INFO] Loading HuggingFace dataset: nuprl/MultiPL-E / {hf_subset}")
+
+        load_kwargs = {"path": "nuprl/MultiPL-E", "name": hf_subset, "split": "test"}
+        if args.hf_cache_dir:
+            load_kwargs["cache_dir"] = args.hf_cache_dir
+
+        try:
+            hf_ds = load_dataset(**load_kwargs)
+        except Exception as e:
+            print(f"[ERROR] Failed to load HF dataset nuprl/MultiPL-E/{hf_subset}: {e}")
+            sys.exit(1)
+
+        # Build lookup dict by problem name, with fallback to task_id
+        for entry in hf_ds:
+            name = entry.get("name")
+            if name:
+                hf_lookup[name] = entry
+            task_id = entry.get("task_id")
+            if task_id and task_id not in hf_lookup:
+                hf_lookup[task_id] = entry
+
+        print(f"[INFO] Loaded {len(hf_ds)} problems from HF dataset, {len(hf_lookup)} lookup keys")
+
+    # Dataset name for SandboxFusion (MultiPL-E dataset id)
+    dataset_name = f"multiple_{args.lang}"
 
     results = []
     unmatched = 0
@@ -151,44 +158,53 @@ def main():
         if i % args.num_shards != args.shard_id:
             continue
 
-        # Match to HF dataset entry
+        # Match to HF dataset entry unless provided_data is embedded.
         problem_name = item.get("name") or item.get("task_id") or item.get("problem_id", "")
-        hf_entry = hf_lookup.get(problem_name)
+        provided_data = None
 
-        if hf_entry is None:
-            # Try alternative keys
-            for key in ["task_id", "name", "problem_id"]:
-                alt = item.get(key)
-                if alt and alt in hf_lookup:
-                    hf_entry = hf_lookup[alt]
-                    problem_name = alt
-                    break
+        if "provided_data" in item:
+            provided_data = item["provided_data"]
+            if not problem_name:
+                problem_name = str(i)
+        else:
+            hf_entry = hf_lookup.get(problem_name)
 
-        if hf_entry is None:
-            unmatched += 1
-            if unmatched <= 5:
-                print(f"[WARN] No HF match for item {i}, keys: "
-                      f"name={item.get('name')}, task_id={item.get('task_id')}, "
-                      f"problem_id={item.get('problem_id')}")
-            item["passed_count"] = 0
-            item["total_candidates"] = len(item.get("candidates", []))
-            if "variant_type" not in item:
-                item["variant_type"] = "unknown"
-            results.append(item)
-            continue
+            if hf_entry is None:
+                # Try alternative keys
+                for key in ["task_id", "name", "problem_id"]:
+                    alt = item.get(key)
+                    if alt and alt in hf_lookup:
+                        hf_entry = hf_lookup[alt]
+                        problem_name = alt
+                        break
 
-        # Convert HF entry to serializable dict for provided_data
-        provided_data = {k: v for k, v in hf_entry.items()}
+            if hf_entry is None:
+                unmatched += 1
+                if unmatched <= 5:
+                    print(f"[WARN] No HF match for item {i}, keys: "
+                          f"name={item.get('name')}, task_id={item.get('task_id')}, "
+                          f"problem_id={item.get('problem_id')}")
+                item["passed_count"] = 0
+                item["total_candidates"] = len(item.get("candidates", []))
+                if "variant_type" not in item:
+                    item["variant_type"] = "unknown"
+                results.append(item)
+                continue
+
+            # Convert HF entry to serializable dict for provided_data
+            provided_data = {k: v for k, v in hf_entry.items()}
 
         candidates = item.get("candidates", [])
         passed_count = 0
 
         for code in candidates:
+            is_freeform = bool(item.get("freeform") or ("```" in code))
             accepted = submit_to_sandbox(
                 session, args.sandbox, dataset_name, problem_name,
                 code, provided_data,
                 compile_timeout=args.compile_timeout,
                 run_timeout=args.run_timeout,
+                extra={"is_freeform": is_freeform},
             )
             if accepted:
                 passed_count += 1

@@ -1,4 +1,0 @@
-UTC_TIMESTAMP=2026-02-28T14:02:06Z
-PWD=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T135815Z
-PYTHON3=/usr/bin/python3
-Python 3.10.12

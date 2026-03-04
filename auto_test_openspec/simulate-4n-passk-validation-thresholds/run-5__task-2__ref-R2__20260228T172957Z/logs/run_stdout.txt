@@ -1,5 +1,0 @@
-PASSK gate validation (config only)
-CONFIG: n=4
-CONFIG: augment_types=rename1,rename2,dead1,dead2
-CONFIG: mode=pass1_only
-CONFIG: stop_on_pass1_fail=0

@@ -1,3 +1,0 @@
-ALL_CHECKS_PASS=1
-[OK] R1 docs contain required references, fields, and language scope.
-[INFO] Wrote report: outputs/validation_report_20260228T132134Z.json

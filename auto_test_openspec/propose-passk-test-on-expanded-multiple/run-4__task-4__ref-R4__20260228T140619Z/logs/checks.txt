@@ -1,3 +1,0 @@
-OK: results/evaluation/FABE/java/pass_at_k/final_metrics.json exists + required keys present
-OK: results/evaluation/FABE/humaneval_cpp/pass_at_k/final_metrics.json exists + required keys present
-OK: results/evaluation/FABE/mbpp_cpp/pass_at_k/final_metrics.json exists + required keys present

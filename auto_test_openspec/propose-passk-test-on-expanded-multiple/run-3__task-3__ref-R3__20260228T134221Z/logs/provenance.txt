@@ -1,3 +1,0 @@
-python3_path: /usr/bin/python3
-python_path: NOT_FOUND
-Python 3.10.12

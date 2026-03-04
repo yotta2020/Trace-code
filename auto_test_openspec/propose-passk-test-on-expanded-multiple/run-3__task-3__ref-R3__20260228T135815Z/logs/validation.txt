@@ -1,1 +1,0 @@
-[OK] R3 CodeContests pass@k path compatibility checks passed.

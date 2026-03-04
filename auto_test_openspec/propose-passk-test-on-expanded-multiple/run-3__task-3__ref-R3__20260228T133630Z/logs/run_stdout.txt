@@ -1,3 +1,0 @@
-Repo root: /home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code
-Run dir :  /home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-3__task-3__ref-R3__20260228T133630Z
-OK: CodeContests pass@k paths remain compatible (static checks passed).

@@ -5,11 +5,12 @@
 # ==============================================================================
 
 # 1. 路径配置 (核心修改点)
-TARGET_LANG="java"
+TARGET_LANG="${TARGET_LANG:-cpp}"
 
-INFERENCE_RESULTS="results/evaluation/FABE/${TARGET_LANG}/pass_at_k/inference_results.jsonl"
+INFERENCE_RESULTS="${INFERENCE_RESULTS:-results/evaluation/FABE/${TARGET_LANG}/pass_at_k/inference_results.jsonl}"
 
-OUTPUT_DIR="results/evaluation/FABE/${TARGET_LANG}/pass_at_k/shards"
+OUTPUT_DIR="${OUTPUT_DIR:-results/evaluation/FABE/${TARGET_LANG}/pass_at_k/shards}"
+REPORT_PATH="${REPORT_PATH:-results/evaluation/FABE/${TARGET_LANG}/pass_at_k/final_metrics.json}"
 
 # 沙箱设置
 DOCKER_IMAGE="vemlp-cn-beijing.cr.volces.com/preset-images/code-sandbox:server-20250609"
@@ -66,7 +67,7 @@ echo "🎉 所有分片验证完毕！"
 # 最后一步：聚合所有分片并计算最终报表
 python "src/evaluation/FABE/aggregate_results.py" \
     --shard_dir "$OUTPUT_DIR" \
-    --save_report "results/evaluation/FABE/${TARGET_LANG}/pass_at_k/final_metrics.json" \
+    --save_report "$REPORT_PATH" \
     --benchmark "codecontests"
 
 echo "==== 评测完成！结果已输出至终端及 $OUTPUT_DIR ===="

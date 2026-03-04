@@ -1,8 +1,0 @@
-[INFO] Running R1 documentation consistency checks...
-[INFO] PWD=/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z
-[INFO] python3=/usr/bin/python3
-Python 3.10.12
-
-ALL_CHECKS_PASS=1
-[OK] R1 docs contain required references, fields, and language scope.
-[INFO] Wrote report: /home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-code/auto_test_openspec/propose-passk-test-on-expanded-multiple/run-1__task-1__ref-R1__20260228T131053Z/outputs/validation_report.json
