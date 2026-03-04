@@ -1,3 +1,14 @@
+# CLAUDE.md (中文翻译版)
+
+> **注意**: 此文件由 CLAUDE.md 自动翻译生成
+> 最后更新：2026-03-04
+>
+> 如需更新翻译，请运行：`python scripts/sync_docs.py --translate`
+>
+> 当前未配置翻译 API，以下为原文内容
+
+---
+
 <!-- OPENSPEC:START -->
 # OpenSpec Instructions
 
