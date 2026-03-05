@@ -70,7 +70,6 @@
 ├── log/                      # Experiment logs (generated)
 ├── results/                  # Evaluation results (generated)
 ├── docs/                     # Documentation
-├── openspec/                 # OpenSpec change tracking
 ├── checkpoints/              # Symlink to model checkpoints
 └── Trace-doc/                # Symlink to documentation repo
 ```
@@ -196,10 +195,6 @@
 - Generated: Yes (by evaluation scripts)
 - Committed: No (typically large files)
 
-**`openspec/`:**
-- Purpose: OpenSpec change tracking and tasks
-- Generated: No (manually maintained)
-- Committed: Yes
 
 **`.planning/`:**
 - Purpose: Planning and analysis documents

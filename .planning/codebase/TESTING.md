@@ -222,7 +222,6 @@ open htmlcov/index.html  # On macOS
 **E2E Tests:**
 - Framework: Not explicitly configured
 - Validation bundles use shell scripts (`run.sh`, `run.bat`) for end-to-end validation
-- Located in `auto_test_openspec/` for OpenSpec workflow
 
 ## Common Patterns
 
@@ -273,24 +272,10 @@ def test_generate_12n_schema(tmp_path: Path, split: str):
     # ...
 ```
 
-## Validation Bundle Pattern (OpenSpec)
-
-For OpenSpec workflow tasks:
-```
-auto_test_openspec/<change-id>/<run-folder>/
-├── task.md           # Task description
-├── run.sh / run.bat  # Validation script
-├── tests/            # Test files
-├── inputs/           # Test inputs
-├── expected/         # Expected outputs
-└── logs/
-    └── worker_startup.txt  # Worker startup snapshot
-```
 
 **Run script pattern:**
 ```bash
 #!/bin/bash
-# auto_test_openspec/<change-id>/<run-folder>/run.sh
 
 python -m pytest tests/ -v
 exit $?

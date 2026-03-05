@@ -1,0 +1,39 @@
+{
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "yotta2020"
+      },
+      "creation_time": "2026-03-05T02:00:07.771Z",
+      "description": {
+        "content": " /gsd:new-project --auto @/home/nfs/share-yjy/dachuang2025/users/d2022-yjy/Trace-doc/03_GSD_Implementation/GSD_TRACE_实施指南.md",
+        "mime": "text/markdown"
+      },
+      "id": "2",
+      "references": [],
+      "title": "/gsd:new-project"
+    },
+    {
+      "assignedTo": {
+        "name": "yotta2020"
+      },
+      "creation_time": "2026-03-05T02:12:52.787Z",
+      "id": "3",
+      "references": [],
+      "title": "codex与Claude能共用gsd吗？"
+    }
+  ],
+  "in-progress": [
+    {
+      "assignedTo": {
+        "name": "yotta2020"
+      },
+      "creation_time": "2026-03-05T01:59:44.553Z",
+      "id": "1",
+      "references": [],
+      "title": "删除codex openspec相关文件"
+    }
+  ],
+  "testing": [],
+  "done": []
+}
