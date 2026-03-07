@@ -229,3 +229,5 @@ __marimo__/
 SandboxFusion
 
 .git/*
+checkpoints/
+models_base/
